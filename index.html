@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iOS Development Quick Guide 101</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#eef8ff',
+                100: '#d8efff',
+                200: '#b7ddff',
+                300: '#7dbdff',
+                400: '#4d9fff',
+                500: '#2067f5',
+                600: '#1a53db',
+                700: '#1646b2',
+                800: '#133a8e',
+                900: '#0e2c6d'
+              }
+            },
+            boxShadow: {
+              glow: '0 20px 60px rgba(15, 23, 42, 0.24)'
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="alternate" href="/es/" hreflang="es" />
+    <link rel="alternate" href="/" hreflang="en" />
+  </head>
+  <body class="bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
+    <div class="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.16),_transparent_40%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.1),_transparent_30%)] px-4 py-8 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <header class="mb-10">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/80">Final Project • iOS Docs</p>
+              <h1 class="mt-3 text-4xl font-semibold tracking-tight text-slate-50 sm:text-5xl">
+                iOS Development Quick Guide 101
+              </h1>
+              <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl">
+                A premium, dark-mode reference for building modern Swift apps with SwiftUI, MVVM, navigation, APIs, and native device features.
+              </p>
+            </div>
+            <div class="hidden md:flex md:flex-col items-end gap-3">
+              <div class="hidden md:block rounded-3xl border border-slate-700/70 bg-slate-900/70 p-5 shadow-glow shadow-slate-900/40">
+                <p class="text-sm uppercase tracking-[0.24em] text-cyan-200/90">Course</p>
+                <p class="mt-2 text-2xl font-semibold text-slate-100">Programacion para dispositivos Mobiles II</p>
+                <p class="mt-1 text-sm text-slate-400">Author: Jose Ricardo Holguin</p>
+              </div>
+              <div class="flex items-center gap-2 rounded-lg bg-slate-900/60 border border-slate-700/60 px-3 py-2">
+                <a href="/" class="text-sm font-medium text-slate-200/90 hover:text-white">EN</a>
+                <span class="h-4 w-px bg-slate-700/60"></span>
+                <a href="es/" class="text-sm font-medium text-slate-200/90 hover:text-white">ES</a>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="grid gap-8 xl:grid-cols-[320px_1fr]">
+          <aside class="glass-panel rounded-3xl border border-slate-700/70 p-5 shadow-glow shadow-slate-900/30 md:sticky md:top-6 md:self-start">
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <p class="text-xs uppercase tracking-[0.24em] text-cyan-300/80">Navegacion</p>
+                <h2 class="mt-2 text-xl font-semibold text-slate-100">Indice Interactuable</h2>
+              </div>
+              <button id="menuButton" class="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-700/80 bg-slate-900/75 text-slate-200 transition hover:bg-slate-800/90 md:hidden">
+                <span class="sr-only">Toggle navigation</span>
+                <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+              </button>
+            </div>
+            <nav id="navPanel" class="mt-6 space-y-2 text-sm text-slate-300 md:block hidden">
+              <a href="#introduction" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">Introduction</a>
+              <a href="#swift-basics" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">Swift Basics</a>
+              <a href="#oop-swift" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">OOP in Swift</a>
+              <a href="#swiftui-fundamentals" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">SwiftUI Fundamentals</a>
+              <a href="#mvvm-observable" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">MVVM + @Observable</a>
+              <a href="#navigationstack-tabview" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">NavigationStack & TabView</a>
+              <a href="#lists-tables" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">Lists & Tables</a>
+              <a href="#animations-transitions" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">Animations & Transitions</a>
+              <a href="#rest-apis-json" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">REST APIs & JSON</a>
+              <a href="#mapkit" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">MapKit</a>
+              <a href="#camera-qr" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">Camera & QR Reader</a>
+              <a href="#conclusion" class="block rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3 transition hover:border-cyan-400/60 hover:bg-slate-800/90 hover:text-white">Conclusion</a>
+            </nav>
+          </aside>
+
+          <main class="space-y-10">
+            <section id="introduction" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border">
+              <div class="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-start">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.32em] text-cyan-300/70">Introduction</p>
+                  <h2 class="mt-4 text-3xl font-semibold text-slate-100 sm:text-4xl">Build iOS apps with confidence</h2>
+                  <p class="mt-4 max-w-3xl text-slate-300 leading-8">This guide introduces the most important patterns and tools for Swift app development, from language basics to advanced UI design, native APIs, and production-ready architecture.</p>
+                </div>
+                <div class="space-y-4">
+                  <div class="rounded-3xl border border-cyan-500/10 bg-slate-950/70 p-6 shadow-xl shadow-cyan-500/5">
+                    <p class="text-sm uppercase tracking-[0.24em] text-cyan-200/80">Why this guide</p>
+                    <p class="mt-3 text-slate-300">Ideal for students building a final project, this quick reference balances practical patterns with visual clarity for modern Swift workflows.</p>
+                  </div>
+                  <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-900/80 p-0 text-slate-400 shadow-inner shadow-slate-950/30">
+                    <img src="images/hero-screenshot.svg" alt="Hero screenshot" class="h-52 w-full object-cover" />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <article class="grid gap-8">
+              <!-- section template start -->
+              <section id="swift-basics" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">01</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">Swift Basics</h3>
+                        <p class="mt-2 text-slate-400">Understand types, functions, and control flow with concise examples for building everyday app logic.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>let username: String = "Developer"
+let score = 72
+
+func greet(user: String) -> String {
+  return "Welcome, \(user)!"
+}
+
+let message = greet(user: username)
+print(message)</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Real Use Case</p>
+                      <p class="mt-3 text-slate-300">Create onboarding flows, validate input, and format user-friendly messages in your first SwiftUI app.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/swift-basics.svg" alt="Swift basics screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+
+              <section id="oop-swift" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">02</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">OOP in Swift</h3>
+                        <p class="mt-2 text-slate-400">Learn classes, inheritance, and protocols to build reusable domain models and app services.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>protocol Vehicle {
+  var model: String { get }
+  func drive()
+}
+
+class Car: Vehicle {
+  let model: String
+  init(model: String) { self.model = model }
+  func drive() {
+    print("Driving \(model) smoothly")
+  }
+}
+
+let car = Car(model: "SwiftGT")
+car.drive()</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Real Use Case</p>
+                      <p class="mt-3 text-slate-300">Model app entities, define service protocols, and keep business logic testable and separated.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/oop-swift.svg" alt="OOP in Swift screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+
+              <section id="swiftui-fundamentals" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">03</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">SwiftUI Fundamentals</h3>
+                        <p class="mt-2 text-slate-400">Build reactive interfaces with views, stacks, modifiers, and data binding in declarative Swift code.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>struct ContentView: View {
+  var body: some View {
+    VStack(spacing: 16) {
+      Text("Welcome to iOS")
+        .font(.title2)
+        .foregroundColor(.cyan)
+      Button("Continue") {
+        print("Tapped")
+      }
+      .buttonStyle(.borderedProminent)
+    }
+    .padding()
+  }
+}</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Real Use Case</p>
+                      <p class="mt-3 text-slate-300">Compose screens quickly and preview live UI using Xcode prebuilt components and view modifiers.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/swiftui-fundamentals.svg" alt="SwiftUI screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+
+              <section id="mvvm-observable" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">04</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">MVVM + @Observable</h3>
+                        <p class="mt-2 text-slate-400">Use observable view models to keep your SwiftUI UI in sync with state and business data.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>class TaskViewModel: ObservableObject {
+  @Published var tasks: [String] = []
+
+  func add(_ task: String) {
+    tasks.append(task)
+  }
+}
+
+struct TaskListView: View {
+  @StateObject var viewModel = TaskViewModel()
+
+  var body: some View {
+    List(viewModel.tasks, id: \.
+    self) { task in
+      Text(task)
+    }
+  }
+}</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Real Use Case</p>
+                      <p class="mt-3 text-slate-300">Keep screens reactive and decoupled from network or storage logic in modern Swift apps.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/mvvm-observable.svg" alt="MVVM flow screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+
+              <section id="navigationstack-tabview" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">05</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">NavigationStack and TabView</h3>
+                        <p class="mt-2 text-slate-400">Manage screen flows with stack navigation and build tabbed interfaces for core app sections.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>NavigationStack {
+  List(items, id: \.
+  self) { item in
+    NavigationLink(value: item) {
+      Text(item.title)
+    }
+  }
+  .navigationDestination(for: Item.self) { item in
+    DetailView(item: item)
+  }
+}
+
+TabView {
+  HomeView().tabItem { Label("Home", systemImage: "house") }
+  ProfileView().tabItem { Label("Profile", systemImage: "person") }
+}</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Real Use Case</p>
+                      <p class="mt-3 text-slate-300">Create intuitive navigation for multi-screen apps with tabs, drill-down pages, and deep links.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/navigationstack-tabview.svg" alt="Navigation layout screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+
+              <section id="lists-tables" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">06</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">Lists and Tables</h3>
+                        <p class="mt-2 text-slate-400">Implement dynamic lists, sections, and table-like layouts with clean row styling and swipe actions.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>List {
+  Section("Favorites") {
+    ForEach(favorites) { item in
+      Text(item.name)
+    }
+  }
+}
+.listStyle(.insetGrouped)</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Real Use Case</p>
+                      <p class="mt-3 text-slate-300">Build content feeds, settings screens, and data tables with polished list interactions.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/lists-tables.svg" alt="Lists and tables screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+
+              <section id="animations-transitions" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">07</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">Animations and Transitions</h3>
+                        <p class="mt-2 text-slate-400">Add motion to your UI with animated state changes, view transitions, and smooth effects.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>withAnimation(.spring()) {
+  showDetail.toggle()
+}
+
+.transition(.move(edge: .bottom).combined(with: .opacity))
+.animation(.easeInOut, value: showDetail)</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Real Use Case</p>
+                      <p class="mt-3 text-slate-300">Use motion to guide users, improve affordance, and create elegant transitions between app states.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/animations-transitions.svg" alt="Animations demo screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+
+              <section id="rest-apis-json" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">08</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">REST APIs and JSON</h3>
+                        <p class="mt-2 text-slate-400">Fetch remote data, decode JSON into Swift models, and display network-driven content.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>struct Article: Codable {
+  let id: Int
+  let title: String
+}
+
+let url = URL(string: "https://api.example.com/articles")!
+URLSession.shared.dataTask(with: url) { data, _, _ in
+  guard let data = data else { return }
+  let articles = try? JSONDecoder().decode([Article].self, from: data)
+}
+.resume()</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Real Use Case</p>
+                      <p class="mt-3 text-slate-300">Power dashboards, feeds, and API-backed views using Codable data models and network tasks.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/rest-apis-json.svg" alt="API interaction screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+
+              <section id="mapkit" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">09</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">MapKit</h3>
+                        <p class="mt-2 text-slate-400">Integrate maps, annotations, and user location to build immersive location-aware experiences.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>import MapKit
+
+struct MapView: UIViewRepresentable {
+  func makeUIView(context: Context) -> MKMapView {
+    MKMapView(frame: .zero)
+  }
+  func updateUIView(_ view: MKMapView, context: Context) {
+    let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+    view.setRegion(region, animated: true)
+  }
+}</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Real Use Case</p>
+                      <p class="mt-3 text-slate-300">Add maps for event locations, tracking features, delivery apps, and location-aware utilities.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/mapkit.svg" alt="MapKit screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+
+              <section id="camera-qr" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">10</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">Camera and QR Reader</h3>
+                        <p class="mt-2 text-slate-400">Access the camera and scan QR codes to add mobile-first interactivity and scanning features.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>import AVFoundation
+
+func setupCaptureSession() {
+  let session = AVCaptureSession()
+  guard let camera = AVCaptureDevice.default(for: .video) else { return }
+  let input = try? AVCaptureDeviceInput(device: camera)
+  if let input { session.addInput(input) }
+}
+
+// Add QR detection metadata output to session</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Real Use Case</p>
+                      <p class="mt-3 text-slate-300">Create contactless check-ins, promotions, and utility apps with live camera scanning.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/camera-qr.svg" alt="Camera and QR screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+
+              <section id="conclusion" class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 shadow-glow section-border transition hover:-translate-y-0.5 hover:shadow-xl">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/20">11</span>
+                      <div>
+                        <h3 class="text-2xl font-semibold text-slate-100">Conclusion</h3>
+                        <p class="mt-2 text-slate-400">Wrap up the essentials and point towards next steps for building polished, production-ready iOS apps.</p>
+                      </div>
+                    </div>
+                    <div class="mt-6 overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/80">
+                      <pre class="language-swift p-5 text-sm leading-6 text-slate-200"><code>// Build strong foundations with Swift, SwiftUI, and modern architecture.
+// Continue learning with real app builds, testing, and app store workflows.
+print("Keep coding, keep shipping.")</code></pre>
+                    </div>
+                  </div>
+                  <aside class="space-y-5">
+                    <div class="rounded-3xl border border-slate-700/50 bg-slate-950/80 p-6 shadow-inner shadow-slate-950/20 transition hover:bg-slate-900/90">
+                      <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/70">Final Note</p>
+                      <p class="mt-3 text-slate-300">Use the patterns here as a foundation for a final project that feels polished, maintainable, and visually modern.</p>
+                    </div>
+                    <div class="h-52 rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950/70 p-0 text-slate-500">
+                      <img src="images/conclusion.svg" alt="Conclusion screenshot" class="h-52 w-full object-cover" />
+                    </div>
+                  </aside>
+                </div>
+              </section>
+            </article>
+
+            <footer class="rounded-[2rem] border border-slate-700/80 bg-slate-900/75 p-8 text-slate-400 shadow-glow section-border">
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.24em] text-cyan-300/80">Documentation</p>
+                  <p class="mt-2 text-slate-300">iOS Development Quick Guide 101 — Final project documentation for Mobiles II.</p>
+                </div>
+                <div class="space-y-1 text-sm">
+                  <p>Author: Jose Ricardo Holguin</p>
+                  <p>Materia: Programacion para dispositivos Mobiles II</p>
+                  <p>Proyecto Final - 2026</p>
+                </div>
+              </div>
+            </footer>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const menuButton = document.getElementById('menuButton');
+      const navPanel = document.getElementById('navPanel');
+      menuButton?.addEventListener('click', () => {
+        navPanel.classList.toggle('hidden');
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          const targetId = link.getAttribute('href')?.substring(1);
+          if (!targetId) return;
+          const target = document.getElementById(targetId);
+          if (!target) return;
+          event.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (window.innerWidth < 768) {
+            navPanel.classList.add('hidden');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
