@@ -1,0 +1,214 @@
+iOS Development Quick Guide 101
+Final Project for Mobile Programming II Course
+Author: Jose Ricardo Holguin
+Course: Programacion para dispositivos Mobiles II
+Year: 2026
+
+This guide introduces the most important patterns and tools for Swift app development, from language basics to advanced UI design, native APIs, and production-ready architecture. Ideal for students building a final project, this quick reference balances practical patterns with visual clarity for modern Swift workflows.
+
+=== TOPIC 1: SWIFT BASICS ===
+
+Swift Basics: Understand types, functions, and control flow with concise examples for building everyday app logic.
+
+Code Example:
+let username: String = "Developer"
+let score = 72
+
+func greet(user: String) -> String {
+  return "Welcome, \(user)!"
+}
+
+let message = greet(user: username)
+print(message)
+
+Real Use Case: Create onboarding flows, validate input, and format user-friendly messages in your first SwiftUI app.
+
+=== TOPIC 2: OOP IN SWIFT ===
+
+OOP in Swift: Learn classes, inheritance, and protocols to build reusable domain models and app services.
+
+Code Example:
+protocol Vehicle {
+  var model: String { get }
+  func drive()
+}
+
+class Car: Vehicle {
+  let model: String
+  init(model: String) { self.model = model }
+  func drive() {
+    print("Driving \(model) smoothly")
+  }
+}
+
+let car = Car(model: "SwiftGT")
+car.drive()
+
+Real Use Case: Model app entities, define service protocols, and keep business logic testable and separated.
+
+=== TOPIC 3: SWIFTUI FUNDAMENTALS ===
+
+SwiftUI Fundamentals: Build reactive interfaces with views, stacks, modifiers, and data binding in declarative Swift code.
+
+Code Example:
+struct ContentView: View {
+  var body: some View {
+    VStack(spacing: 16) {
+      Text("Welcome to iOS")
+        .font(.title2)
+        .foregroundColor(.cyan)
+      Button("Continue") {
+        print("Tapped")
+      }
+      .buttonStyle(.borderedProminent)
+    }
+    .padding()
+  }
+}
+
+Real Use Case: Compose screens quickly and preview live UI using Xcode prebuilt components and view modifiers.
+
+=== TOPIC 4: MVVM + @OBSERVABLE ===
+
+MVVM + @Observable: Use observable view models to keep your SwiftUI UI in sync with state and business data.
+
+Code Example:
+class TaskViewModel: ObservableObject {
+  @Published var tasks: [String] = []
+
+  func add(_ task: String) {
+    tasks.append(task)
+  }
+}
+
+struct TaskListView: View {
+  @StateObject var viewModel = TaskViewModel()
+
+  var body: some View {
+    List(viewModel.tasks, id: \.self) { task in
+      Text(task)
+    }
+  }
+}
+
+Real Use Case: Keep screens reactive and decoupled from network or storage logic in modern Swift apps.
+
+=== TOPIC 5: NAVIGATIONSTACK & TABVIEW ===
+
+NavigationStack and TabView: Manage screen flows with stack navigation and build tabbed interfaces for core app sections.
+
+Code Example:
+NavigationStack {
+  List(items, id: \.self) { item in
+    NavigationLink(value: item) {
+      Text(item.title)
+    }
+  }
+  .navigationDestination(for: Item.self) { item in
+    DetailView(item: item)
+  }
+}
+
+TabView {
+  HomeView().tabItem { Label("Home", systemImage: "house") }
+  ProfileView().tabItem { Label("Profile", systemImage: "person") }
+}
+
+Real Use Case: Create intuitive navigation for multi-screen apps with tabs, drill-down pages, and deep links.
+
+=== TOPIC 6: LISTS AND TABLES ===
+
+Lists and Tables: Implement dynamic lists, sections, and table-like layouts with clean row styling and swipe actions.
+
+Code Example:
+List {
+  Section("Favorites") {
+    ForEach(favorites) { item in
+      Text(item.name)
+    }
+  }
+}
+.listStyle(.insetGrouped)
+
+Real Use Case: Build content feeds, settings screens, and data tables with polished list interactions.
+
+=== TOPIC 7: ANIMATIONS AND TRANSITIONS ===
+
+Animations and Transitions: Add motion to your UI with animated state changes, view transitions, and smooth effects.
+
+Code Example:
+withAnimation(.spring()) {
+  showDetail.toggle()
+}
+
+.transition(.move(edge: .bottom).combined(with: .opacity))
+.animation(.easeInOut, value: showDetail)
+
+Real Use Case: Use motion to guide users, improve affordance, and create elegant transitions between app states.
+
+=== TOPIC 8: REST APIS AND JSON ===
+
+REST APIs and JSON: Fetch remote data, decode JSON into Swift models, and display network-driven content.
+
+Code Example:
+struct Article: Codable {
+  let id: Int
+  let title: String
+}
+
+let url = URL(string: "https://api.example.com/articles")!
+URLSession.shared.dataTask(with: url) { data, _, _ in
+  guard let data = data else { return }
+  let articles = try? JSONDecoder().decode([Article].self, from: data)
+}
+.resume()
+
+Real Use Case: Power dashboards, feeds, and API-backed views using Codable data models and network tasks.
+
+=== TOPIC 9: MAPKIT ===
+
+MapKit: Integrate maps, annotations, and user location to build immersive location-aware experiences.
+
+Code Example:
+import MapKit
+
+struct MapView: UIViewRepresentable {
+  func makeUIView(context: Context) -> MKMapView {
+    MKMapView(frame: .zero)
+  }
+  func updateUIView(_ view: MKMapView, context: Context) {
+    let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+    view.setRegion(region, animated: true)
+  }
+}
+
+Real Use Case: Add maps for event locations, tracking features, delivery apps, and location-aware utilities.
+
+=== TOPIC 10: CAMERA AND QR READER ===
+
+Camera and QR Reader: Access the camera and scan QR codes to add mobile-first interactivity and scanning features.
+
+Code Example:
+import AVFoundation
+
+func setupCaptureSession() {
+  let session = AVCaptureSession()
+  guard let camera = AVCaptureDevice.default(for: .video) else { return }
+  let input = try? AVCaptureDeviceInput(device: camera)
+  if let input { session.addInput(input) }
+}
+
+// Add QR detection metadata output to session
+
+Real Use Case: Create contactless check-ins, promotions, and utility apps with live camera scanning.
+
+=== CONCLUSION ===
+
+Build strong foundations with Swift, SwiftUI, and modern architecture. Continue learning with real app builds, testing, and app store workflows.
+
+Final Note: Use the patterns here as a foundation for a final project that feels polished, maintainable, and visually modern.
+
+Keep coding, keep shipping.
+
+===
+This guide covers 10 essential iOS development topics selected from the course curriculum, each with practical code examples and real-world use cases. The content is designed to serve as a quick reference for students building their final projects and as a study resource for future iOS development work.
