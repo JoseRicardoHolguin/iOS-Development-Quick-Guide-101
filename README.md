@@ -17,7 +17,7 @@ Final project for Mobile Programming II course - A comprehensive reference guide
 
 ## 🌐 Live Demo
 
-This guide is published on GitHub Pages at: [URL to be added after deployment]
+This guide is published on GitHub Pages at: https://josericardoholguin.github.io/iOS-Development-Quick-Guide-101/
 
 ## 🚀 Local Development
 
