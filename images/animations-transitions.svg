@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
-  <rect width="800" height="400" rx="18" fill="#041021" />
-  <text x="30" y="80" fill="#67e8f9" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600">Animations & Transitions</text>
-  <text x="30" y="120" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="14">withAnimation(.spring()) { ... }</text>
-</svg>
